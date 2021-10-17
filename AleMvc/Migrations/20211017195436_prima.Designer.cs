@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AleMvc.Migrations
 {
     [DbContext(typeof(MioDbContext))]
-    [Migration("20211017160141_terza")]
-    partial class terza
+    [Migration("20211017195436_prima")]
+    partial class prima
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,7 +44,9 @@ namespace AleMvc.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Lezionis");
+                    b.HasIndex("Id_Docente");
+
+                    b.ToTable("Lezioni");
                 });
 
             modelBuilder.Entity("AleMvc.Models.Nuoviutenti", b =>
@@ -64,7 +66,23 @@ namespace AleMvc.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Nuoviutentis");
+                    b.ToTable("Utenti");
+                });
+
+            modelBuilder.Entity("AleMvc.Models.Lezioni", b =>
+                {
+                    b.HasOne("AleMvc.Models.Nuoviutenti", "utente")
+                        .WithMany("Lezione")
+                        .HasForeignKey("Id_Docente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("utente");
+                });
+
+            modelBuilder.Entity("AleMvc.Models.Nuoviutenti", b =>
+                {
+                    b.Navigation("Lezione");
                 });
 #pragma warning restore 612, 618
         }

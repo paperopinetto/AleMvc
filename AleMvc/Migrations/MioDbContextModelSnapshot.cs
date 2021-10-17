@@ -42,7 +42,9 @@ namespace AleMvc.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Lezionis");
+                    b.HasIndex("Id_Docente");
+
+                    b.ToTable("Lezioni");
                 });
 
             modelBuilder.Entity("AleMvc.Models.Nuoviutenti", b =>
@@ -62,7 +64,23 @@ namespace AleMvc.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Nuoviutentis");
+                    b.ToTable("Utenti");
+                });
+
+            modelBuilder.Entity("AleMvc.Models.Lezioni", b =>
+                {
+                    b.HasOne("AleMvc.Models.Nuoviutenti", "utente")
+                        .WithMany("Lezione")
+                        .HasForeignKey("Id_Docente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("utente");
+                });
+
+            modelBuilder.Entity("AleMvc.Models.Nuoviutenti", b =>
+                {
+                    b.Navigation("Lezione");
                 });
 #pragma warning restore 612, 618
         }

@@ -17,8 +17,8 @@ namespace AleMvc.Data
             : base(options)
         {
         }
-        public DbSet<Nuoviutenti> Nuoviutentis { get; set; }
-        public DbSet<Lezioni> Lezionis { get; set; }
+        public DbSet<Nuoviutenti> Utente { get; set; }
+        public DbSet<Lezioni> Lezione { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -32,9 +32,24 @@ namespace AleMvc.Data
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
 
-            OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Entity<Lezioni>(entity =>
+            {
+                entity.ToTable("Lezioni");
+                entity.HasKey(lezione => lezione.ID);
+            });
+
+            modelBuilder.Entity<Nuoviutenti>(entity =>
+            {
+                entity.ToTable("Utenti");
+                entity.HasKey(utente => utente.ID);
+
+                entity.HasMany(utente => utente.Lezione)
+                .WithOne(lezione => lezione.utente)
+                .HasForeignKey(lezione => lezione.Id_Docente);
+            });
+
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        
     }
 }

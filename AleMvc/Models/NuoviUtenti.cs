@@ -16,7 +16,9 @@ namespace AleMvc.Models
         [Required(ErrorMessage = "Password richiesto")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        
+
+        public virtual ICollection<Lezioni> Lezione { get; set; }
+
 
 
 

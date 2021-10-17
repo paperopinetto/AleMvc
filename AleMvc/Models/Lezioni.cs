@@ -21,7 +21,7 @@ namespace AleMvc.Models
         public string Docente { get; set; }
         public int Id_Docente { get; set; }
         
-
+        public virtual Nuoviutenti utente { get; set; }
 
 
 

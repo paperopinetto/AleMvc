@@ -27,12 +27,7 @@ namespace AleMvc.Controllers
 
           
         }
-        public FileResult Download()
-        {
-
-  return File("/Files/testo.txt", "text/plain", "testo.txt");
-        }
-
+        
 
         public IActionResult Privacy()
         {
